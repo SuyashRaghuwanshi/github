@@ -11,7 +11,7 @@ const gitClient=new GitClient
 const command = process.argv[2];
 
 switch (command) {
-  case "init":
+  case "init":z
     createGitDirectory();
     break;
     case "cat-file":
