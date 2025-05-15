@@ -18,7 +18,7 @@ class CommitTreeCommand{
         ]);
 
         const header=`commit ${commitContentBuffer.length}\0`;
-        const data=Buffer.concat(Buffer.from(header),commitContentBuffer);
+        const data=Buffer.concat([Buffer.from(header),commitContentBuffer]);
         const hash=crypto.createHash("sha1").update(data).digest("hex");
 
         const folder=hash.slice(0,2);
