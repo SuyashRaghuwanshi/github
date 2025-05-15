@@ -26,6 +26,9 @@ switch (command) {
     case "write-tree":
         handleWriteTreeCommand();
         break;
+    case "commit-tree":
+        handleCommitTreeCommand();
+        break;
   default:
     throw new Error(`Unknown command ${command}`);
 }
@@ -71,5 +74,13 @@ function handleLsTreeCommand() {
 
 function handleWriteTreeCommand() {
   const command=new WriteTreeCommand();
+  gitClient.run(command);
+}
+
+function handleCommitTreeCommand() {
+  const tree=process.argv[3];
+  const commitSHA=process.argv[5];
+  const commitMessage=process.argv[7];
+  const command=new CommitTreeCommand(tree, commitSHA, commitMessage);
   gitClient.run(command);
 }
