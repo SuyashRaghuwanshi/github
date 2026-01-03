@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const zlib = require("zlib");
 
 class HashObjectCommand {
+    
     constructor(flag, filepath) {
         this.flag = flag;
         this.filepath = filepath;
@@ -11,6 +12,7 @@ class HashObjectCommand {
 
     execute() {
         const filePath = path.resolve(this.filepath);
+
         if (!fs.existsSync(filePath)) {
             throw new Error(`could not open ${filePath} for reading: No such file or directory`);
         }
@@ -28,13 +30,14 @@ class HashObjectCommand {
         const blob = Buffer.concat([Buffer.from(header), normalizedContents]);
 
         const hash = crypto.createHash('sha1').update(blob).digest('hex');
+        
 
         // Optional: Debugging
         // console.log("File length:", fileLength);
         // console.log("Header:", JSON.stringify(header));
         // console.log("Blob (hex):", blob.toString("hex"));
 
-        if (this.flag === 'w') {
+        if (this.flag === '-w') {
             const folder = hash.substring(0, 2);
             const file = hash.slice(2);
             const completeFolderPath = path.join(process.cwd(), '.git', 'objects', folder);
